@@ -12,6 +12,13 @@ class Multa extends BaseController
     public function mostrar()
     {
         $multaModel = model('MultaModel');
+        $session = session();
+        // Verificar si el usuario ha iniciado sesion
+        if($session->get('logged_in')!=TRUE){ 
+            // Redireccionar a la pagina de mostrar libros si no ha iniciado sesión
+            return redirect('usuario/login','refresh');  
+        }
+        
         $data['multa'] = $multaModel->findAll(); 
     
         echo view('common/head');

@@ -96,6 +96,13 @@ class Reseña extends BaseController{
     public function buscar(){
         // Se obtienen los datos del formulario de búsqueda
         $reseñaModel = model('ReseñaModel');
+        $session = session();
+        // Verificar si el usuario ha iniciado sesion
+        if($session->get('logged_in')!=TRUE){ 
+            // Redireccionar a la pagina de mostrar libros si no ha iniciado sesión
+            return redirect('usuario/login','refresh');  
+        }
+
         if(isset($_GET['nombre'])){
             $nombre = $_GET['nombre']; 
             $calificacion = $_GET['calificacion']; 

@@ -59,6 +59,13 @@ class Prestamo extends BaseController
 // Muestra el formulario para editar un prestamo existente
     public function editar($id){
         $prestamoModel = model('PrestamoModel');
+        $session = session();
+        // Verificar si el usuario ha iniciado sesion
+        if($session->get('logged_in')!=TRUE){ 
+            // Redireccionar a la pagina de mostrar libros si no ha iniciado sesión
+            return redirect('usuario/login','refresh');  
+        }
+        
         $data['prestamo'] = $prestamoModel->find($id);
 
         return 

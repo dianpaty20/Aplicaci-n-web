@@ -50,6 +50,14 @@ class Biblioteca extends BaseController
 // Elimina uno de los dtaos que tiene la base de datos
     public function delete($id){
         $bibliotecaModel = model('BibliotecaModel');
+
+        $session = session();
+        // Verificar si el usuario ha iniciado sesion
+        if($session->get('logged_in')!=TRUE){ 
+            // Redireccionar a la pagina de mostrar libros si no ha iniciado sesión
+            return redirect('usuario/login','refresh');  
+        }
+        
         $bibliotecaModel->delete($id);
         return redirect('biblioteca/mostrar','refresh');
     }
